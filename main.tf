@@ -18,7 +18,7 @@ terraform {
       version = ">= 2.2.0, < 3.0.0"
     }
   }
-}
+} 
 
 provider "azapi" {
   # Configuration options
@@ -44,6 +44,34 @@ resource "azurerm_resource_group" "rg" {
     Environment = var.tag_environment
     Project     = var.tag_project
     Creator     = var.tag_creator
+  }
+}
+
+resource "azurerm_cognitive_account" "openai_service" {
+  name                  = var.aiserviceaccountname
+  location              = var.location
+  resource_group_name   = azurerm_resource_group.rg.name
+  kind                  = "AIServices"
+  sku_name              = var.sku
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
+
+resource "azurerm_cognitive_deployment" "azopenaideployment" {
+  name                 = var.modeldeploymentname
+  cognitive_account_id = azurerm_cognitive_account.openai_service.id
+
+  model {
+    format  = "OpenAI"
+    name    = var.model
+    version = var.modelversion
+  }
+
+  sku {
+    name     = "Standard"
+    capacity = var.capacity
   }
 }
 
