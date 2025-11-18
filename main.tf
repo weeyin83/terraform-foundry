@@ -18,7 +18,7 @@ terraform {
       version = ">= 2.2.0, < 3.0.0"
     }
   }
-} 
+}
 
 provider "azapi" {
   # Configuration options
@@ -48,11 +48,11 @@ resource "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_cognitive_account" "openai_service" {
-  name                  = var.aiserviceaccountname
-  location              = var.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  kind                  = "AIServices"
-  sku_name              = var.sku
+  name                = var.aiserviceaccountname
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+  kind                = "AIServices"
+  sku_name            = var.sku
 
   identity {
     type = "SystemAssigned"
