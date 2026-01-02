@@ -1,3 +1,5 @@
+
+
 ##
 # Variables
 ##
@@ -60,11 +62,16 @@ variable "model" {
 variable "modelversion" {
   type        = string
   description = "Model version identifier"
- default = "2024-11-20"
+  default     = "2024-11-20"
 }
 
 variable "capacity" {
   type        = number
   description = "Deployment capacity units"
   default     = 10
+}
+
+variable "custom_subdomain_name" {
+  description = "Custom domain name for the Azure AI Services endpoint"
+  type        = string
 }

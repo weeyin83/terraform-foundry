@@ -7,15 +7,15 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 3.71, < 5.0.0"
+      version = ">= 4.57.0, < 5.0.0"
     }
     random = {
       source  = "hashicorp/random"
-      version = ">= 3.5.1, < 4.0.0"
+      version = ">= 3.7.2, < 4.0.0"
     }
     azapi = {
       source  = "Azure/azapi"
-      version = ">= 2.2.0, < 3.0.0"
+      version = ">= 2.8.0, < 3.0.0"
     }
   }
 }
@@ -75,4 +75,18 @@ resource "azurerm_cognitive_deployment" "azopenaideployment" {
   }
 }
 
+resource "azapi_update_resource" "openai_custom_subdomain" {
+  type        = "Microsoft.CognitiveServices/accounts@2025-10-01-preview"
+  resource_id = azurerm_cognitive_account.openai_service.id
+
+  body = {
+    properties = {
+      customSubDomainName = var.custom_subdomain_name
+    }
+  }
+
+  depends_on = [
+    azurerm_cognitive_account.openai_service
+  ]
+}
 
