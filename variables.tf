@@ -56,7 +56,7 @@ variable "modeldeploymentname" {
 variable "model" {
   type        = string
   description = "Model name (e.g. gpt-4o, gpt-5)"
-  default     = "gpt-40"
+  default     = "gpt-4o"
 }
 
 variable "modelversion" {
